@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>加密工具（基礎） | AA加密自由 · AA-Crypto-Libertaria</title>
+
+<!-- 基本 Content Security Policy：僅允許本站與需要用到的 API 網域 -->
+<meta http-equiv="Content-Security-Policy" content="
+  default-src 'self';
+  connect-src 'self' https://api.coingecko.com https://ipapi.co https://ipinfo.io https://apilist.tronscanapi.com;
+  img-src 'self' data:;
+  style-src 'self' 'unsafe-inline';
+  script-src 'self';
+">
+
+<style>
+  :root{
+    --bg:#0f1113; --card:#14171a; --text:#f2f5f7; --muted:#9aa3ab; --accent:#3ea6ff; --border:#23272a;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial}
+  header{padding:18px 16px;border-bottom:1px solid var(--border);text-align:center}
+  header h1{margin:0;font-size:20px}
+  header h2{margin:4px 0 0;font-size:14px;color:var(--muted);font-weight:500}
+  nav{margin-top:10px}
+  nav a{color:#fff;text-decoration:none;margin:0 8px}
+  nav a:hover{text-decoration:underline}
+  main{max-width:900px;margin:20px auto;padding:0 14px}
+  .section-title{font-size:18px;margin:18px 0 10px}
+  .grid{display:grid;grid-template-columns:1fr;gap:12px}
+  @media(min-width:720px){.grid{grid-template-columns:1fr 1fr}}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px}
+  .card h3{margin:0 0 8px;font-size:16px}
+  label{display:block;margin:8px 0 6px;font-size:13px;color:var(--muted)}
+  input,select,textarea{width:100%;padding:10px;border-radius:10px;border:1px solid var(--border);background:#0c0f12;color:#fff}
+  button{background:var(--accent);border:none;color:#001b2a;padding:10px 12px;border-radius:10px;font-weight:700}
+  .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+  .out{margin-top:10px;background:#0b0e11;border:1px solid var(--border);border-radius:10px;padding:10px;white-space:pre-wrap;word-break:break-word;color:#cfd6dd}
+  small{color:var(--muted)}
+  footer{border-top:1px solid var(--border);margin-top:30px;padding:16px;text-align:center;color:var(--muted);font-size:12px}
+  .warn{border-left:4px solid #ffb84d;padding-left:8px}
+</style>
+</head>
+<body>
+<header>
+  <h1>加密工具（基礎）</h1>
+  <h2>AA加密自由 · AA-Crypto-Libertaria</h2>
+  <nav>
+    <a href="index.html">首頁</a> |
+    <a href="tools.html">加密工具（基礎）</a> |
+    <a href="about.html">關於我們</a> |
+    <a href="donate.html">支持本站</a> |
+    <a href="statements.html">官方聲明</a>
+  </nav>
+</header>
+
+<main>
+  <p class="warn"><small>重要聲明：基於隱私與安全原則，本網站為「單次、前端執行」；不會在本站伺服器保存你的資訊，故無法提供調閱。正式上線前請搭配我們的 serverless proxy（僅日誌安全事件、避免暴露金鑰）。</small></p>
+
+  <!-- 區塊 1：加密貨幣工具 -->
+  <h2 class="section-title">1）加密貨幣工具</h2>
+  <div class="grid">
+
+    <!-- USDT ↔ TWD 換算 -->
+    <section class="card">
+      <h3>USDT ↔ TWD 即時換算</h3>
+      <label>數量</label>
+      <input id="amt" type="number" value="1" step="0.0001">
+      <div class="row">
+        <button id="btnU2T">USDT → TWD</button>
+        <button id="btnT2U">TWD → USDT</button>
+      </div>
+      <div id="fxOut" class="out"></div>
+      <small>來源：CoinGecko </small>
+    </section>
+
+    <!-- TRON 地址查詢（示範） -->
+    <section class="card">
+      <h3>TRON 地址查詢（TRX/USDT-TRC20）</h3>
+      <label>TRON 地址（例：T...）</label>
+      <input id="trxAddr" placeholder="請輸入 TRON 地址">
+      <div class="row">
+        <button id="btnTron">查詢地址</button>
+      </div>
+      <div id="tronOut" class="out"></div>
+      <small>說明：建設中，目前只提供 Tron 地址查詢；完整的全區塊鏈查詢系統正在研發；若遇到 CORS 或限額，請改用我們的 serverless proxy（Vercel）。</small>
+    </section>
+
+  </div>
+
+  <!-- 區塊 2：加密隱私工具 -->
+  <h2 class="section-title">2）加密隱私工具</h2>
+  <div class="grid">
+
+    <!-- 單次位置/IP 測試 -->
+    <section class="card">
+      <h3>單次位置 / IP 測試</h3>
+      <small>用途：自我檢測「若被監控，對方大致看到的資訊」。本工具僅顯示於你的瀏覽器畫面，本站不會儲存，故無法提供調閱。</small>
+      <div class="row" style="margin-top:6px">
+        <button id="btnGPS">GPS 測試（需同意一次性授權）</button>
+        <button id="btnIP">IP 估算（不需 GPS授權）</button>
+      </div>
+      <div id="geoOut" class="out"></div>
+    </section>
+
+    <!-- 強密碼產生器 -->
+    <section class="card">
+      <h3>強密碼產生器（本地隨機）</h3>
+      <label>長度（8–64）</label>
+      <input id="pwLen" type="number" min="8" max="64" value="16">
+      <div class="row">
+        <label><input type="checkbox" id="pwUpper" checked> 大寫</label>
+        <label><input type="checkbox" id="pwLower" checked> 小寫</label>
+        <label><input type="checkbox" id="pwNum" checked> 數字</label>
+        <label><input type="checkbox" id="pwSym" checked> 符號</label>
+      </div>
+      <div class="row">
+        <button id="btnGenPw">產生密碼</button>
+      </div>
+      <div id="pwOut" class="out"></div>
+      <small>僅使用瀏覽器的加密隨機數。建議配合密碼管理器使用。</small>
+    </section>
+
+    <!-- 文字 → SHA-256 -->
+    <section class="card">
+      <h3>SHA-256 密語通訊</h3>
+      <label>輸入文字</label>
+      <textarea id="shaIn" rows="4" placeholder="輸入任意文字（不會上傳）"></textarea>
+      <div class="row">
+        <button id="btnSHA">計算 SHA-256</button>
+      </div>
+      <div id="shaOut" class="out"></div>
+      <small>使用 API 本地計算，不經過網路。</small>
+    </section>
+
+    <!-- Base64 編解碼（UTF-8 安全） -->
+    <section class="card">
+      <h3>Base64 編碼 / 解碼（UTF-8）密語通訊</h3>
+      <label>原文</label>
+      <textarea id="b64In" rows="3" placeholder="輸入要編碼/解碼的文字"></textarea>
+      <div class="row">
+        <button id="btnB64Enc">編碼</button>
+        <button id="btnB64Dec">解碼</button>
+      </div>
+      <div id="b64Out" class="out"></div>
+      <small>在地端進行轉換，適合測試與教學用途。</small>
+    </section>
+
+  </div>
+
+  <section class="card" style="margin-top:16px">
+    <h3>安全與隱私備註</h3>
+    <ul>
+      <li>本頁工具遵循「最小資料留存」原則：你輸入的內容在你的瀏覽器內處理，不會回傳至本站伺服器。</li>
+      <li>對外 API 僅讀取公開資料（幣價、IP 估算、鏈上公開資訊）。</li>
+      <li>若需要金鑰或進階檢測，請改用我們的 serverless proxy / 原生 App（開發中）。</li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  © 2025 AA-Crypto-Libertaria · AA加密自由
+</footer>
+
+<script>
+/* ---------- 共用 ---------- */
+const $ = s => document.querySelector(s);
+const outText = (el, txt) => el.textContent = txt;
+const outHTML = (el, html) => el.innerHTML = html;
+
+/* ---------- 1) 加密貨幣工具 ---------- */
+// USDT <-> TWD（CoinGecko）
+$('#btnU2T').onclick = async ()=>{
+  const v = parseFloat($('#amt').value)||0;
+  outText($('#fxOut'),'查詢中…');
+  try{
+    const r = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=tether&vs_currencies=twd,usd');
+    const j = await r.json();
+    const p = j?.tether?.twd;
+    if(!p) throw new Error('無價格');
+    outHTML($('#fxOut'), `${v} USDT ≒ NT$ ${(v*p).toFixed(2)}（1 USDT = NT$ ${p}）`);
+  }catch(e){ outText($('#fxOut'), '查詢失敗：'+e); }
+};
+$('#btnT2U').onclick = async ()=>{
+  const v = parseFloat($('#amt').value)||0;
+  outText($('#fxOut'),'查詢中…');
+  try{
+    const r = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=tether&vs_currencies=twd,usd');
+    const j = await r.json();
+    const p = j?.tether?.twd;
+    if(!p) throw new Error('無價格');
+    outHTML($('#fxOut'), `NT$ ${v} ≒ ${(v/p).toFixed(6)} USDT（1 USDT = NT$ ${p}）`);
+  }catch(e){ outText($('#fxOut'), '查詢失敗：'+e); }
+};
+
+// TRON 地址概況（Tronscan 簡單示範）
+$('#btnTron').onclick = async ()=>{
+  const addr = $('#trxAddr').value.trim();
+  if(!addr){ outText($('#tronOut'),'請先輸入 TRON 地址'); return; }
+  outText($('#tronOut'),'查詢中…');
+  try{
+    const url = `https://apilist.tronscanapi.com/api/account?address=${encodeURIComponent(addr)}`;
+    const r = await fetch(url);
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    const j = await r.json();
+
+    // 精簡展示：TRX 餘額、TRC20 代幣數量前幾筆
+    const trx = (j.balance || 0)/1_000_000;
+    let html = `地址：${addr}\nTRX 估算餘額：${trx}\n`;
+    if(Array.isArray(j.trc20token_balances) && j.trc20token_balances.length){
+      html += `\nTRC20 代幣（前 5 筆）：\n`;
+      j.trc20token_balances.slice(0,5).forEach(t=>{
+        html += `- ${t.tokenName || t.name || 'Token'}：${t.balance}\n`;
+      });
+    }
+    outHTML($('#tronOut'), html.replace(/</g,'&lt;'));
+  }catch(e){
+    outText($('#tronOut'), '查詢失敗或被 CORS/限額限制：'+e+'\n建議改走 serverless proxy（Vercel）以提高穩定性。');
+  }
+};
+
+/* ---------- 2) 加密隱私工具 ---------- */
+// GPS / IP 單次測試
+$('#btnGPS').onclick = ()=>{
+  outText($('#geoOut'),'請允許瀏覽器存取位置（單次）…');
+  if(!navigator.geolocation){ outText($('#geoOut'),'此瀏覽器不支援 geolocation'); return; }
+  navigator.geolocation.getCurrentPosition((pos)=>{
+    const lat = pos.coords.latitude.toFixed(6);
+    const lon = pos.coords.longitude.toFixed(6);
+    outHTML($('#geoOut'), `GPS：lat=${lat}, lon=${lon}\n<a href="https://www.google.com/maps/search/?api=1&query=${lat},${lon}" target="_blank" rel="noopener">在地圖中開啟</a>`);
+  }, async (_e)=>{
+    outText($('#geoOut'),'GPS 失敗，改用 IP 估算…');
+    await ipFallback();
+  }, {timeout:10000});
+};
+$('#btnIP').onclick = ()=> ipFallback();
+
+async function ipFallback(){
+  try{
+    const r = await fetch('https://ipapi.co/json/');
+    const j = await r.json();
+    outHTML($('#geoOut'), `<pre>${JSON.stringify(j,null,2)}</pre>`);
+  }catch(e){
+    try{
+      const r2 = await fetch('https://ipinfo.io/json');
+      const j2 = await r2.json();
+      outHTML($('#geoOut'), `<pre>${JSON.stringify(j2,null,2)}</pre>`);
+    }catch(e2){
+      outText($('#geoOut'),'IP 估算失敗：'+e+' / '+e2);
+    }
+  }
+}
+
+// 強密碼產生器
+$('#btnGenPw').onclick = ()=>{
+  const len = Math.min(64, Math.max(8, parseInt($('#pwLen').value)||16));
+  const sets = [];
+  if($('#pwUpper').checked) sets.push("ABCDEFGHJKLMNPQRSTUVWXYZ"); // 去掉易混淆 I/O
+  if($('#pwLower').checked) sets.push("abcdefghijkmnopqrstuvwxyz"); // 去掉易混淆 l
+  if($('#pwNum').checked)   sets.push("23456789");                 // 去掉 0/1
+  if($('#pwSym').checked)   sets.push("!@#$%^&*()-_=+[]{};:,.?");
+  if(!sets.length){ outText($('#pwOut'),'請至少選一種字元類型'); return; }
+
+  const all = sets.join('');
+  const arr = new Uint32Array(len);
+  crypto.getRandomValues(arr);
+  let pw = '';
+  for(let i=0;i<len;i++){ pw += all[arr[i] % all.length]; }
+  // 確保至少各類型各 1
+  function ensureOne(chars){ const idx = Math.floor(Math.random()*len); pw = pw.substring(0,idx)+chars[Math.floor(Math.random()*chars.length)]+pw.substring(idx+1); }
+  sets.forEach(ensureOne);
+  outText($('#pwOut'), pw);
+};
+
+// SHA-256
+$('#btnSHA').onclick = async ()=>{
+  const s = $('#shaIn').value;
+  const buf = new TextEncoder().encode(s);
+  const digest = await crypto.subtle.digest('SHA-256', buf);
+  const hashArray = Array.from(new Uint8Array(digest));
+  const hex = hashArray.map(b=>b.toString(16).padStart(2,'0')).join('');
+  outText($('#shaOut'), hex);
+};
+
+// Base64（UTF-8 安全）
+function utf8ToB64(str){
+  const bytes = new TextEncoder().encode(str);
+  let bin = ''; bytes.forEach(b=>bin += String.fromCharCode(b));
+  return btoa(bin);
+}
+function b64ToUtf8(b64){
+  const bin = atob(b64);
+  const bytes = new Uint8Array([...bin].map(c=>c.charCodeAt(0)));
+  return new TextDecoder().decode(bytes);
+}
+$('#btnB64Enc').onclick = ()=>{ try{ outText($('#b64Out'), utf8ToB64($('#b64In').value)); }catch(e){ outText($('#b64Out'),'編碼失敗：'+e); } };
+$('#btnB64Dec').onclick = ()=>{ try{ outText($('#b64Out'), b64ToUtf8($('#b64In').value)); }catch(e){ outText($('#b64Out'),'解碼失敗：'+e); } };
+</script>
+</body>
+</html>
