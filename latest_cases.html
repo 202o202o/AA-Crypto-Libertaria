@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>最新案例</title>
+<style>
+body { font-family: Arial, sans-serif; background-color: #121212; color: #eee; margin: 0; padding: 20px; }
+nav a { color: #ff4c4c; text-decoration: none; margin: 0 8px; font-weight: bold; }
+nav a:hover { text-decoration: underline; }
+section { margin-top: 20px; padding: 20px; background-color: #1e1e1e; border-radius: 10px; }
+h2 { color: #ff4c4c; }
+.case { border-bottom: 1px solid #333; padding: 12px 0; }
+.case:last-child { border-bottom: none; }
+.case-title { font-weight: bold; font-size: 18px; color: #fff; }
+.case-meta { font-size: 14px; color: #aaa; margin-top: 4px; }
+.case-desc { font-size: 16px; margin-top: 8px; color: #ccc; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">入口</a> |
+  <a href="tools.html">工具</a> |
+  <a href="survival.html">生存法</a> |
+  <a href="about.html">計劃</a> |
+  <a href="donate.html">協力</a> |
+  <a href="statements.html">聲明</a>
+</nav>
+
+<h1>最新駭客案例 / 詐騙新聞</h1>
+<p>本頁面以資訊為主，提供最新案例與防範概念</p>
+
+<section id="cases">
+  <!-- 案例列表由 JS 動態生成 -->
+</section>
+
+<script>
+// 1️⃣ 代理 JSON URL (未來可替換為你的後端 API)
+const apiURL = "https://your-server.com/latest_cases.json"; 
+
+async function fetchCases() {
+  try {
+    const res = await fetch(apiURL);
+    const data = await res.json();
+
+    const casesContainer = document.getElementById("cases");
+    casesContainer.innerHTML = ""; // 清空舊內容
+
+    data.forEach(c => {
+      const caseEl = document.createElement("div");
+      caseEl.className = "case";
+      caseEl.innerHTML = `
+        <div class="case-title">${c.title}</div>
+        <div class="case-meta">${c.source} | ${c.date}</div>
+        <div class="case-desc">${c.description}<br><strong>防範提示:</strong> ${c.concept}</div>
+      `;
+      casesContainer.appendChild(caseEl);
+    });
+
+  } catch (error) {
+    document.getElementById("cases").innerHTML = "<p>案例載入失敗，請稍後再試。</p>";
+    console.error(error);
+  }
+}
+
+// 載入案例
+fetchCases();
+</script>
+
+</body>
+</html>
