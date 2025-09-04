@@ -5,16 +5,35 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>最新案例</title>
 <style>
-body { font-family: Arial, sans-serif; background-color: #121212; color: #eee; margin: 0; padding: 20px; }
-nav a { color: #ff4c4c; text-decoration: none; margin: 0 8px; font-weight: bold; }
-nav a:hover { text-decoration: underline; }
-section { margin-top: 20px; padding: 20px; background-color: #1e1e1e; border-radius: 10px; }
-h2 { color: #ff4c4c; }
-.case { border-bottom: 1px solid #333; padding: 12px 0; }
-.case:last-child { border-bottom: none; }
-.case-title { font-weight: bold; font-size: 18px; color: #fff; }
-.case-meta { font-size: 14px; color: #aaa; margin-top: 4px; }
-.case-desc { font-size: 16px; margin-top: 8px; color: #ccc; }
+  body { 
+    font-family: Arial, sans-serif; 
+    margin: 0; 
+    background-color: #1a1a1a; 
+    color: #f0f0f0; 
+  }
+  nav {
+    background-color: #333;
+    padding: 10px;
+    text-align: center;
+  }
+  nav a {
+    color: #ff4d4d;
+    margin: 0 10px;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  nav a:hover { color: #fff; }
+  .container { padding: 15px; max-width: 600px; margin: auto; }
+  .card {
+    background-color: #2c2c2c;
+    margin: 15px 0;
+    padding: 15px;
+    border-left: 4px solid #ff4d4d;
+    border-radius: 6px;
+  }
+  .card h3 { margin: 0 0 5px; color: #ff4d4d; }
+  .card p { margin: 5px 0; color: #ccc; }
+  .card small { color: #999; }
 </style>
 </head>
 <body>
@@ -28,44 +47,60 @@ h2 { color: #ff4c4c; }
   <a href="statements.html">聲明</a>
 </nav>
 
-<h1>最新駭客案例 / 詐騙新聞</h1>
-<p>本頁面以資訊為主，提供最新案例與防範概念</p>
-
-<section id="cases">
-  <!-- 案例列表由 JS 動態生成 -->
-</section>
+<div class="container">
+  <h2>最新駭客與詐騙案例</h2>
+  <div id="cases-list">
+    <!-- 案例將由 JS 生成 -->
+  </div>
+</div>
 
 <script>
-// 1️⃣ 代理 JSON URL (未來可替換為你的後端 API)
-const apiURL = "https://your-server.com/latest_cases.json"; 
+  // 範例資料，可替換成真實 JSON
+  const latestCases = [
+    {
+      "title": "Jaguar Land Rover 遭遇駭客攻擊",
+      "source": "The Times",
+      "date": "2025-09-03",
+      "description": "駭客利用 SAP Netweaver 漏洞入侵 Jaguar Land Rover（JLR）系統，造成營運干擾。",
+      "concept": "系統更新/定期安全審計/員工安全教育"
+    },
+    {
+      "title": "日本女性遭遇「太空人詐騙」損失近 1 百萬日圓",
+      "source": "New York Post",
+      "date": "2025-09-03",
+      "description": "詐騙者冒充太空人與受害者建立虛假情感關係，要求金錢以返回地球。",
+      "concept": "情感操控/虛假關係"
+    },
+    {
+      "title": "PayPal 用戶成為帳戶資料詐騙的目標",
+      "source": "Malwarebytes",
+      "date": "2025-09-03",
+      "description": "偽造電子郵件誘使用戶提供敏感資訊。",
+      "concept": "電子郵件/身份驗證"
+    },
+    {
+      "title": "AI 模仿詐騙案件激增 148%",
+      "source": "TechRadar",
+      "date": "2025-08-31",
+      "description": "詐騙者利用語音克隆和深度偽造技術模仿信任的人進行詐騙。",
+      "concept": "AI/技術認知"
+    }
+  ];
 
-async function fetchCases() {
-  try {
-    const res = await fetch(apiURL);
-    const data = await res.json();
+  const container = document.getElementById("cases-list");
 
-    const casesContainer = document.getElementById("cases");
-    casesContainer.innerHTML = ""; // 清空舊內容
+  latestCases.forEach(caseItem => {
+    const card = document.createElement("div");
+    card.className = "card";
 
-    data.forEach(c => {
-      const caseEl = document.createElement("div");
-      caseEl.className = "case";
-      caseEl.innerHTML = `
-        <div class="case-title">${c.title}</div>
-        <div class="case-meta">${c.source} | ${c.date}</div>
-        <div class="case-desc">${c.description}<br><strong>防範提示:</strong> ${c.concept}</div>
-      `;
-      casesContainer.appendChild(caseEl);
-    });
-
-  } catch (error) {
-    document.getElementById("cases").innerHTML = "<p>案例載入失敗，請稍後再試。</p>";
-    console.error(error);
-  }
-}
-
-// 載入案例
-fetchCases();
+    card.innerHTML = `
+      <h3>${caseItem.title}</h3>
+      <small>${caseItem.date} | 來源: ${caseItem.source}</small>
+      <p>${caseItem.description}</p>
+      <p><strong>防範概念：</strong>${caseItem.concept}</p>
+    `;
+    container.appendChild(card);
+  });
 </script>
 
 </body>
