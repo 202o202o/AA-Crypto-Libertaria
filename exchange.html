@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TWD ↔ USDT 即時匯率</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 20px; background-color: #f9f9f9; }
+  nav a { margin: 0 10px; text-decoration: none; color: #007acc; }
+  section { background-color: #fff; padding: 20px; margin-top: 20px; border-radius: 8px; text-align: center; }
+  h2 { color: #333; }
+  input, select { padding: 10px; margin: 10px 0; width: 80%; max-width: 250px; font-size: 16px; }
+  button { padding: 12px 25px; margin: 20px 0; font-size: 16px; background-color: #007acc; color: #fff; border: none; border-radius: 8px; cursor: pointer; }
+  button:hover { background-color: #005fa3; }
+  .result { font-size: 18px; font-weight: bold; color: #d9534f; margin-top: 15px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">入口</a> |
+  <a href="tools.html">工具</a> |
+  <a href="about.html">計劃</a> |
+  <a href="donate.html">協力</a> |
+  <a href="statements.html">聲明</a>
+</nav>
+
+<section>
+  <h2>TWD ↔ USDT 即時匯率轉換</h2>
+  
+  <input type="number" id="amount" placeholder="輸入金額" />
+  
+  <select id="direction">
+    <option value="twd_to_usdt">TWD → USDT</option>
+    <option value="usdt_to_twd">USDT → TWD</option>
+  </select>
+  
+  <button onclick="convert()">轉換</button>
+  
+  <div class="result" id="result">結果會顯示在這裡</div>
+</section>
+
+<script>
+async function convert() {
+  let amount = parseFloat(document.getElementById("amount").value);
+  let direction = document.getElementById("direction").value;
+  if(isNaN(amount) || amount <= 0){
+    alert("請輸入有效數字");
+    return;
+  }
+
+  // 使用 CoinGecko 公開 API 抓取 USDT/TWD 價格
+  try {
+    let response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=tether&vs_currencies=twd');
+    let data = await response.json();
+    let rate = data.tether.twd; // 1 USDT = X TWD
+
+    let result;
+    if(direction === "twd_to_usdt"){
+      result = (amount / rate).toFixed(4) + " USDT";
+    } else {
+      result = (amount * rate).toFixed(2) + " TWD";
+    }
+
+    document.getElementById("result").textContent = result;
+
+  } catch(e){
+    console.error(e);
+    alert("取得匯率失敗，請稍後再試");
+  }
+}
+</script>
+
+</body>
+</html>
