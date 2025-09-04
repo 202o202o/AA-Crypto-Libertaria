@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TRX 能量租賃</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 20px; background-color: #f9f9f9; }
+  nav a { margin: 0 10px; text-decoration: none; color: #007acc; }
+  section { background-color: #fff; padding: 20px; margin-top: 20px; border-radius: 8px; text-align: center; }
+  h2 { color: #333; }
+  p { margin: 10px 0; font-size: 16px; color: #555; }
+  button { padding: 12px 25px; margin: 20px 0; font-size: 16px; background-color: #007acc; color: #fff; border: none; border-radius: 8px; cursor: pointer; }
+  button:hover { background-color: #005fa3; }
+  .timer { font-size: 18px; font-weight: bold; color: #d9534f; margin: 15px 0; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">入口</a> |
+  <a href="tools.html">工具</a> |
+  <a href="about.html">計劃</a> |
+  <a href="donate.html">協力</a> |
+  <a href="statements.html">聲明</a>
+</nav>
+
+<section>
+  <h2>TRX 能量租賃（更新中）</h2>
+  
+  <p>目前租賃質押池發現安全性漏洞<br>正在更新合約漏洞，新版本會盡快上線恢復服務</p>
+  <p>2025/09/01</p>
+
+  <div class="timer" id="countdown">倒數計時: 10:00</div>
+
+  <button onclick="finishRental()">完成並清除瀏覽紀錄</button>
+</section>
+
+<script>
+let countdownEl = document.getElementById("countdown");
+
+function startCountdown() {
+  let timeLeft = 600; // 秒，10分鐘
+  let timer = setInterval(() => {
+    let minutes = Math.floor(timeLeft / 60);
+    let seconds = timeLeft % 60;
+    countdownEl.textContent = `倒數計時: ${minutes.toString().padStart(2,'0')}:${seconds.toString().padStart(2,'0')}`;
+    timeLeft--;
+    if(timeLeft < 0){
+      clearInterval(timer);
+      // 彈窗提示
+      if(confirm("連線已遇時，請重新取得網站授權")) {
+        // 重新整理頁面
+        location.reload();
+      }
+    }
+  }, 1000);
+}
+
+// 啟動倒數
+startCountdown();
+
+// 返回上一頁並清除 sessionStorage/localStorage
+function finishRental(){
+  sessionStorage.clear();
+  localStorage.clear();
+  history.back();
+}
+</script>
+
+</body>
+</html>
