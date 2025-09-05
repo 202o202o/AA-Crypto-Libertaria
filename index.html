@@ -1,79 +1,40 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-TW">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AA加密自由 | AA-Crypto-Libertaria</title>
-  <style>
-    body {
-      font-family: Arial, "Noto Sans TC", sans-serif;
-      background-color: #f9f9f9;
-      color: #222;
-      margin: 0;
-      padding: 0;
-      line-height: 1.6;
-    }
-    header {
-      background: #111;
-      color: #fff;
-      padding: 1rem 2rem;
-      text-align: center;
-    }
-    nav {
-      margin-top: 0.5rem;
-    }
-    nav a {
-      color: #fff;
-      text-decoration: none;
-      margin: 0 10px;
-    }
-    nav a:hover {
-      text-decoration: underline;
-    }
-    main {
-      max-width: 800px;
-      margin: 2rem auto;
-      padding: 0 1rem;
-    }
-    footer {
-      text-align: center;
-      padding: 1rem;
-      margin-top: 2rem;
-      background: #eee;
-      font-size: 0.9rem;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AA-Crypto-Libertaria 入口</title>
 </head>
 <body>
-  <header>
-    <h1>AA加密自由</h1>
-    <h2>AA-Crypto-Libertaria</h2>
-    <p>隱私，去中心，自由</p>
- <nav>
-  <a href="index.html">入口</a> |
-  <a href="tools.html">工具</a> |
-  <a href="survival.html">生存法</a> |
-  <a href="about.html">計劃</a> |
-  <a href="donate.html">協力</a> |
-  <a href="statements.html">聲明</a>
-</nav>
-  </header>
+  <!-- 導覽列 -->
+  <div id="nav-placeholder"></div>
 
-  <main>
-    <h3>AA加密自由 | AA-Crypto-Libertaria</h3>
-    <p>
-      這是一個推廣去中心化、隱私保障與加密自由為核心的社群計畫<br>
-      這裡提供加密工具、教育資源、案例分析，以及最新的聲明公告<br>
-      幫助每一位使用者理解關於區塊鏈的基本知識<br>
-      真正的加密自由主義必須依靠自己所學所用來實踐
-    </p>
-    <p>
-      🌐 目前網站仍在建構中，後續將陸續加入更多頁面與資源。
-    </p>
-  </main>
+  <!-- 頁首 -->
+  <div class="header container">
+    <h1>AA-Crypto-Libertaria</h1>
+    <p>加密自由、匿名去中心化、單兵基本戰鬥</p>
+  </div>
 
-  <footer>
-    <p>© 2025 AA-Crypto-Libertaria | AA加密自由</p>
-  </footer>
+  <!-- 主要區塊 -->
+  <div class="container">
+    <section class="section">
+      <h2>功能入口</h2>
+      <a class="btn" href="pages/tools.html">工具</a>
+      <a class="btn" href="pages/survival.html">生存法</a>
+      <a class="btn" href="pages/about.html">計劃</a>
+      <a class="btn" href="pages/donate.html">協力</a>
+    </section>
+
+    <section class="section">
+      <h2>說明</h2>
+      <p>本站專注於加密自由、匿名交流與教育，並提供 加密工具與案例分析。</p>
+    </section>
+  </div>
+
+  <div class="footer">AA-Crypto-Libertaria</div>
+
+  <!-- 共用 JS -->
+  <script src="assets/js/nav.js"></script>
+  <script>mountAssets(); mountNav('#nav-placeholder');</script>
 </body>
 </html>
