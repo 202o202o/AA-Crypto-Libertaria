@@ -5,17 +5,48 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>生存法</title>
 <style>
-  body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #121212; color: #eee; }
-  nav { background-color: #1a1a1a; padding: 10px; text-align: center; }
-  nav a { margin: 0 10px; text-decoration: none; color: #f44336; font-weight: bold; }
-  nav a:hover { color: #ff7961; }
-  header { padding: 20px; text-align: center; background-color: #1a1a1a; color: #f44336; }
-  h1 { margin: 0; font-size: 28px; }
-  .intro { padding: 15px; text-align: center; font-size: 16px; line-height: 1.5; background-color: #1f1f1f; border-bottom: 2px solid #333; }
-  .buttons { display: flex; flex-direction: column; gap: 15px; padding: 20px; }
-  .buttons button { padding: 18px; font-size: 18px; border: none; border-radius: 8px; cursor: pointer; background-color: #333; color: #f44336; transition: 0.2s; font-weight: bold; }
-  .buttons button:hover { background-color: #444; color: #ff7961; }
-  @media (min-width: 600px) { .buttons { flex-direction: row; flex-wrap: wrap; justify-content: center; } .buttons button { width: 220px; } }
+  body { 
+    font-family: Arial, sans-serif; 
+    margin: 0; 
+    background-color: #1b1b1b; 
+    color: #f0f0f0; 
+  }
+  nav { 
+    background-color: #2e2e2e; 
+    padding: 10px; 
+    text-align: center; 
+  }
+  nav a { 
+    margin: 0 10px; 
+    text-decoration: none; 
+    color: #e53935; 
+    font-weight: bold;
+  }
+  nav a:hover { color: #ff6f61; }
+  header { text-align: center; padding: 20px; }
+  h1 { margin: 0; color: #e53935; }
+  .container { display: flex; flex-direction: column; align-items: center; padding: 20px; gap: 15px; }
+  .card { 
+    width: 90%; 
+    max-width: 400px; 
+    background-color: #2e2e2e; 
+    border: 2px solid #e53935; 
+    border-radius: 10px; 
+    padding: 20px; 
+    text-align: center; 
+  }
+  .card button { 
+    width: 100%; 
+    padding: 15px; 
+    margin-top: 10px; 
+    font-size: 16px; 
+    background-color: #e53935; 
+    color: #fff; 
+    border: none; 
+    border-radius: 8px; 
+    cursor: pointer; 
+  }
+  .card button:hover { background-color: #ff6f61; }
 </style>
 </head>
 <body>
@@ -31,21 +62,38 @@
 
 <header>
   <h1>生存法</h1>
+  <p>知識、教戰守則、最新案例</p>
 </header>
 
-<div class="intro">
-  本頁面專注於提供使用者加密自由與隱私保護教育
-  <strong>基本知識、案例頗析、實戰教學</strong>  
-  匿名、去中心、加密自由
-</div>
+<div class="container">
+  
+  <div class="card">
+    <h2>基本戰鬥教練</h2>
+    <p>手機監控防範、匿名上網、防詐技巧等</p>
+    <button onclick="location.href='basic_training.html'">前往</button>
+  </div>
 
-<div class="buttons">
-  <button onclick="location.href='latest_case.html'">最新案例</button>
-  <button onclick="location.href='basic_training.html'">基本戰鬥教練</button>
-  <button onclick="location.href='case_material.html'">案例分析</button>
-  <button onclick="location.href='self_check.html'">自我安全性檢測</button>
-  <button onclick="location.href='anonymous_board.html'">匿名版</button>
-</div>
+  <div class="card">
+    <h2>教材</h2>
+    <p>社群詐騙案例分析與防範措施</p>
+    <button onclick="location.href='teaching_material.html'">前往</button>
+  </div>
+
+  <div class="card">
+    <h2>最新案例</h2>
+    <p>動態新聞板塊，提供駭客手法與詐騙案例</p>
+    <button onclick="location.href='latest_case.html'">前往</button>
+  </div>
+
+  <div class="card">
+    <h2>自我檢測</h2>
+    <p>IP/GPS 定位查詢、瀏覽器指紋測試、安全檢測</p>
+    <button onclick="location.href='self_check.html'">前往</button>
+  </div>
+
+
+
+
 
 </body>
 </html>
