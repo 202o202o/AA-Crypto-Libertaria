@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>最新案例 — AA-Crypto-Libertaria</title>
+  <!-- CSS 由 nav.js mountAssets() 注入，以下以防萬一可保留 -->
+</head>
+<body>
+  <div id="nav-placeholder"></div>
+
+  <div class="header container"><h1>生存法 — 最新案例</h1></div>
+  <div class="container">
+    <section class="section">
+      <div id="cases-list"></div>
+    </section>
+  </div>
+  <div class="footer">AA-Crypto-Libertaria</div>
+
+  <script src="../assets/js/nav.js"></script>
+  <script>mountAssets(); mountNav('#nav-placeholder');</script>
+
+  <script src="../assets/js/utils.js"></script>
+  <script src="../assets/js/rss.js"></script>
+  <script>
+    // RSS source：你可以改成多個來源輪替
+    const RSS_FEED = 'https://www.bleepingcomputer.com/feed/';
+    loadRssToContainer(RSS_FEED, '#cases-list', 6);
+  </script>
+</body>
+</html>
