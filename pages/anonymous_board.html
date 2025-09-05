@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>匿名版 — 提交經驗</title>
+</head>
+<body>
+  <div id="nav-placeholder"></div>
+  <div class="header container"><h1>匿名版 — 提交</h1></div>
+  <div class="container">
+    <section class="section">
+      <form id="anonForm">
+        <label>標題<br><input id="title" required style="width:100%;padding:8px;margin-top:6px"></label>
+        <label>內容（不要貼個資）<br><textarea id="body" rows="8" style="width:100%;padding:8px;margin-top:6px" required></textarea></label>
+        <label>標籤（逗號分隔）<br><input id="tags" style="width:100%;padding:8px;margin-top:6px"></label>
+        <label>設定密碼以保護該投稿（請記住密碼，無法恢復）<br><input id="pwd" type="password" style="width:100%;padding:8px;margin-top:6px" required></label>
+        <div style="margin-top:12px">
+          <button type="submit" class="btn">加密並下載檔案 (.enc)</button>
+        </div>
+      </form>
+
+      <hr style="border-color:var(--border);margin:16px 0">
+      <p>下一步：使用 Freenet/ River / Freenet Email App 或其他去中心化工具上傳此加密檔案。詳細步驟請參考 Freenet Lab（站內文檔）。</p>
+    </section>
+  </div>
+  <div class="footer">AA-Crypto-Libertaria</div>
+
+<script src="../assets/js/nav.js"></script>
+<script>mountAssets(); mountNav('#nav-placeholder');</script>
+<script src="../assets/js/utils.js"></script>
+
+<script>
+document.getElementById('anonForm').addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const title = document.getElementById('title').value.trim();
+  const body = document.getElementById('body').value.trim();
+  const tags = document.getElementById('tags').value.trim().split(',').map(s=>s.trim()).filter(Boolean);
+  const pwd = document.getElementById('pwd').value;
+  if(!title || !body || !pwd) return alert('請填標題、內容與密碼');
+
+  const payload = { title, body, tags, ts: new Date().toISOString() };
+  // 直接以密碼加密並下載 .enc
+  await encryptAndDownloadJSON(payload, pwd, `anon_${Date.now()}.enc`);
+  alert('已生成加密檔案，請將檔案上傳至 Freenet / River / 或使用 Freenet Email App 發送（請保留密碼）');
+});
+</script>
+</body>
+</html>
