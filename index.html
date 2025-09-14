@@ -1,40 +1,171 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AA-Crypto-Libertaria 入口</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AA-Crypto-Libertaria</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #1b1b1b;
+      color: #f0f0f0;
+      line-height: 1.6;
+    }
+    nav {
+      background-color: #2e2e2e;
+      padding: 10px;
+      text-align: center;
+    }
+    nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #e53935;
+      font-weight: bold;
+    }
+    nav a:hover {
+      color: #ff6f61;
+    }
+    header {
+      text-align: center;
+      padding: 40px 20px;
+    }
+    h1 {
+      margin: 0;
+      color: #e53935;
+      font-size: 2.2em;
+    }
+    .section {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #2e2e2e;
+      border-radius: 10px;
+      border: 1px solid #e53935;
+    }
+    h2 {
+      color: #e53935;
+      margin-top: 0;
+    }
+    h3 {
+      color: #ff6f61;
+      margin-top: 20px;
+    }
+    details {
+      background: #1f1f1f;
+      border: 1px solid #444;
+      border-radius: 6px;
+      margin: 10px 0;
+      padding: 10px;
+    }
+    summary {
+      cursor: pointer;
+      font-weight: bold;
+      color: #e53935;
+    }
+    summary:hover {
+      color: #ff6f61;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9em;
+      color: #aaa;
+    }
+  </style>
 </head>
 <body>
-  <!-- 導覽列 -->
-  <div id="nav-placeholder"></div>
 
-  <!-- 頁首 -->
-  <div class="header container">
+  <nav>
+    <a href="index.html">入口</a> |
+    <a href="pages/tools.html">工具</a> |
+    <a href="pages/survival.html">生存法</a> |
+    <a href="pages/about.html">計劃</a> |
+    <a href="pages/donate.html">協力</a> |
+    <a href="pages/statements.html">聲明</a>
+  </nav>
+
+  <header>
     <h1>AA-Crypto-Libertaria</h1>
-    <p>加密自由、匿名去中心化、單兵基本戰鬥</p>
-  </div>
+    <p>數位時代的隱私防禦與自由實驗場</p>
+  </header>
 
-  <!-- 主要區塊 -->
-  <div class="container">
-    <section class="section">
-      <h2>功能入口</h2>
-      <a class="btn" href="pages/tools.html">工具</a>
-      <a class="btn" href="pages/survival.html">生存法</a>
-      <a class="btn" href="pages/about.html">計劃</a>
-      <a class="btn" href="pages/donate.html">協力</a>
-    </section>
+  <section class="section" aria-labelledby="about-title">
+    <h2 id="about-title">關於「加密無政府主義」</h2>
 
-    <section class="section">
-      <h2>說明</h2>
-      <p>本站專注於加密自由、匿名交流與教育，並提供 加密工具與案例分析。</p>
-    </section>
-  </div>
+    <h3>定義（簡要）</h3>
+    <p>
+      加密無政府主義（Crypto-anarchy）是一種以密碼學為核心的思想取向，重視個人隱私、政治自由與經濟自由。
+      本站的視角，是將其視為一套「自我防禦與自我解放的工具箱」，讓我們能在數位時代保持行動自由。
+    </p>
 
-  <div class="footer">AA-Crypto-Libertaria</div>
+    <h3>主要動機</h3>
+    <p>
+      核心動機是抵抗監控與強權控制。透過加密，個人能把網路通訊與交易還原成「只屬於當事人」的行為，
+      而不是讓外部機構掌握我們的每一步。本網站也因此重視如何把這些技術落地，轉換成人人可用的日常防護。
+    </p>
 
-  <!-- 共用 JS -->
-  <script src="assets/js/nav.js"></script>
-  <script>mountAssets(); mountNav('#nav-placeholder');</script>
+    <h3>起源與影響</h3>
+    <details>
+      <summary>Timothy C. May 與 cypherpunk 的歷史淵源（點此展開）</summary>
+      <p>
+        在 1988 年，Timothy C. May 撰寫了 <em>The Crypto Anarchist Manifesto</em>，
+        這份短文成為 cypherpunk 運動的重要精神起點。他強調透過密碼學，社會將出現一個全新局面：
+        政府與企業不再能隨意審查或追蹤私人通訊，因為所有資訊都能加密並在去中心化的網路上傳遞。
+      </p>
+      <p>
+        cypherpunk 社群（包含 Eric Hughes、Phil Zimmermann 等人）延續了這個理念，
+        他們不僅討論，更實際編寫程式碼（如 PGP 加密郵件），讓理論化為工具。
+        本站認為這種「以程式為行動」的精神，正是我們今天推廣去中心化與隱私工具時，最值得繼承的核心。
+      </p>
+    </details>
+
+    <h3>實務面：匿名交易與加密貨幣</h3>
+    <p>
+      比特幣與其他去中心化技術，讓匿名或半匿名交易成為可能。
+      本站關注的並非投機炒作，而是如何在現實裡使用這些技術，保障資訊安全與個人選擇。
+    </p>
+
+    <h3>延伸概念</h3>
+    <details>
+      <summary>網路國家 / 虛擬國家（點此展開）</summary>
+      <p>
+        在加密無政府主義的討論裡，有一股重要的延伸方向：若個人能透過加密工具建立自足的網路身份與經濟體系，
+        那麼「國家」就不必再以地理疆界來界定，而可以透過網路共識來組成。
+      </p>
+      <p>
+        這種想法衍生出「網路國家」或「虛擬國家」的概念 —— 由分散在全球的社群，以密碼學、智能合約、
+        自治規則來治理，形成一種不依靠傳統領土的政治實驗。
+      </p>
+      <p>
+        本站看待這種概念，並非浪漫幻想，而是視為一種「長期試煉場」：
+        它提醒我們，現有的工具（錢包、DAO、加密通訊）並不只是技術玩具，
+        而可能是逐步削弱中心化強權、建立替代秩序的起點。
+      </p>
+    </details>
+
+    <h3>批評與限制</h3>
+    <p>
+      批評者指出，加密無政府主義過於理想化，難以處理現實世界中的濫用、倫理或公平問題。
+      本站則認為，正因如此，教育與自我覺察才格外重要：工具本身中立，
+      關鍵在於使用者能否在保障自身自由的同時，理解其社會責任。
+    </p>
+
+    <hr>
+    <h3>本站的立場</h3>
+    <p>
+      AA-Crypto-Libertaria 不僅僅是轉譯理念，我們更注重「行動化」。
+      我們提供工具與指南，協助你在現實中逐步培養加密思維，落實個人數位主權。
+    </p>
+
+    <p style="font-size:0.9em;color:#aaa;">
+      維基百科 <em>Crypto-anarchy</em>
+    </p>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 AA-Crypto-Libertaria. </p>
+  </footer>
+
 </body>
 </html>
